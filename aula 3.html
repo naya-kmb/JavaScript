@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>animal identity</title>
+  </head>
+  <body>
+    <h1>pet badge</h1>
+
+    <input type="text" id="Name" placeholder="Pet Name" /><br /><br />
+    <input type="text" id="Breed" placeholder="Pet Breed" /><br /><br />
+    <input type="number" id="Height" placeholder="Pet Height" /><br /><br />
+    <input type="file" id="Photo" accept="image/*" /><br /><br />
+
+    <button onclick="GenerateBadge()">Create Badge</button>
+
+    <div id="Result"></div>
+
+    <script>
+      function GenerateBadge() {
+        const Name = document.getElementById("Name").value;
+        const Breed = document.getElementById("Breed").value;
+        const Height = document.getElementById("Height").value;
+        const PhotoInput = document.getElementById("Photo");
+
+        if (!PhotoInput.files[0]) {
+          alert("Please select a photo!");
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const ImageURL = e.target.result;
+
+          document.getElementById("Result").innerHTML = `
+            <div class="Badge">
+                <img src="${ImageURL}" alt="Pet Photo" width="150">
+                <h2>${Name}</h2>
+                <p><strong>Breed:</strong> ${Breed}</p>
+                <p><strong>Height:</strong> ${Height}</p>
+            </div>
+        `;
+        };
+
+        reader.readAsDataURL(PhotoInput.files[0]);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tabuada</title>
+</head>
+<body>
+    <h1>tabuada</h1>
+    <input type="number" id="num">
+    <button onclick="gerar()">gerar tabuada</button>
+    <div id = "resultado"></div>
+    <script>
+
+        function gerar() {
+            let n = document.getElementById("num").value;
+            let res = document.getElementById("resultado");
+            //limpar o resultado anterior
+            res.innerHTML = "";
+            for(let i = 1; i<=10; i++){
+                //aqui usamos + pra colar os pedaços
+                res.innerHTML += n + "x" + i + "=" + (n*i) + "<br>";
+            }
+        }
+    </script>
+</body>
+</html>

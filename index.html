@@ -3,65 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de CEP</title>
+    <title>credit analysis</title>
 </head>
 <body>
- <h1>Consulta de CEP</h1>  
- <input type="text" id="cep" placeholder="Digite o CEP">
- <button onclick="buscarCEP()">buscar CEP</button><br><br>
+    <h1>credit analysis sistem💰</h1>
+    <p>what is your current salary?</p>
+    <input type="number" id="salary" placeholder="enter the salary">
+    <p>what is the amount of the installment you wish to pay?</p>
 
- <input type="text" id="logradouro" placeholder="Logradouro"><br><br>
- <input type="text" id="bairro" placeholder="Bairro"><br><br>
- <input type="text" id="cidade" placeholder="Cidade"><br><br>
- <input type="text" id="uf" placeholder="UF"><br><br>
- <input type="text" id="complemento" placeholder="Complemento(casa, apto, bloco, etc)"><br><br>
- <input type="text" id="numero" placeholder="Numero"><br><br>
+    <input type="number" id="installment" placeholder="enter the installment"><br><br>
+    <button onclick="analyze()">analyze credit</button>
 
- <script>
-    const cepInput = document.querySelector("#cep");
+    <div id="result"></div>
 
-    const bairroInput = document.querySelector("#bairro");
-    
-    const logradouroInput = document.querySelector("#logradouro");
 
-    const cidadeInput = document.querySelector("#cidade");
+    <script>
+        function analyze() {
+            let salary = document.getElementById("salary").value;
+            let installment = document.getElementById("installment").value;
+            let res = document.getElementById("result");
+            //business rule: the installment can't be bigger than 30% of the salary
+             
+            let limit = salary * 0.3;
+            //clean the previous result and define an basic style
 
-    const ufInput = document.querySelector("#uf");
+            res.innerHTML= "";
+            res.style.marginTop = "20px";
+            res.style.fontWeight = "bold";
 
-    async function buscarCEP(){
-
-        let cep = cepInput.value.replace(/\D/g,"");
-
-        if (cep.length !==8){
-alert("CEP inválido");
-return;
+            //conditional structure if/else
+            if (installment <= limit){
+                res.innerHTML = "✔ APPROVED CREDIT<br>";
+                res.innerHTML += "the value is at limit of R$" + limit;
+                res.style.color = "darkgreen";
+            }else{
+                res.innerHTML = "❌ DENIED CREDIT<br>";
+                res.innerHTML += "the portion of R$" + installment + "exceeds the limit of R$" + limit;
+                res.style.color = "darkred";
+            }
         }
-    
-        const url = `https://viacep.com.br/ws/${cep}/json/`;
-
-    try{
-
-const response = await fetch(url);
-
-const data = await response.json();
-
-if(data.erro){
-    alert("CEP não encontrado!");
-    return;
-}
-
-logradouroInput.value = data.logradouro;
-cidadeInput.value = data.cidade;
-bairroInput.value = data.bairro;
-ufInput.value = data.uf;
-
-    }catch (error){
-
-        console.error("erro:", error);
-
-        alert("erro ao buscar o CEP");
-    }
-    }
- </script>
+    </script>
 </body>
 </html>
